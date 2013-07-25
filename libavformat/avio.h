@@ -240,6 +240,21 @@ void avio_flush(AVIOContext *s);
 int avio_read(AVIOContext *s, unsigned char *buf, int size);
 
 /**
+ * Read size bytes from AVIOContext, returning a pointer.
+ * @param s IO context
+ * @param buf pointer to buffer into which to assemble the requested
+ *    data if it is not available in contiguous addresses in the
+ *    underlying buffer
+ * @param size number of bytes requested
+ * @param data address at which to store pointer: this will be a
+ *    a direct pointer into the underlying buffer if the requested
+ *    number of bytes are available at contiguous addresses, otherwise
+ *    will be a copy of buf
+ * @return number of bytes read or AVERROR
+ */
+int avio_read_indirect(AVIOContext *s, unsigned char *buf, int size, unsigned char **data);
+
+/**
  * @name Functions for reading from AVIOContext
  * @{
  *
